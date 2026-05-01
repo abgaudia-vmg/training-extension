@@ -62,7 +62,10 @@ export class ThemeService {
     public listenToExternalChanges(): void {
         console.log('listenToExternalChanges');
         chrome.runtime.onMessage.addListener((event) => {
-            console.log("🚀 ~ ThemeService ~ listenToExternalChanges ~ event:", event)
+            console.log(
+                '🚀 ~ ThemeService ~ listenToExternalChanges ~ event:',
+                event,
+            );
             if (event?.type === THEME_CHANNEL_BROADCAST_EVENT) {
                 this.applyDarkPalette((event.data.theme as TTheme) === 'dark');
                 this.setTheme(event.data.theme as TTheme, false);

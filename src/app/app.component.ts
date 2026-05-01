@@ -42,7 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
     constructor(
         private readonly ngZone: NgZone,
         public readonly ThemeService: ThemeService,
-    ) { }
+    ) {}
 
     ngOnInit(): void {
         chrome.storage.onChanged.addListener(this.onStorageChanged);
