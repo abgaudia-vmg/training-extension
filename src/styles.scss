@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+@import './theme/variables';
+
+body {
+    width: 400px;
+    height: 600px;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

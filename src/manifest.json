@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Extension Training",
+  "version": "0.0.1",
+  "description": "Angular app as a Chrome extension popup with background and content scripts.",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Extension Training"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": [
+    "cookies",
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "http://localhost/*",
+    "http://localhost:4200/*",
+    "http://localhost:4300/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://localhost:4200/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "all_frames": true,
+      "match_about_blank": true,
+      "run_at": "document_idle"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+    "root": true,
+    "ignorePatterns": [
+        "projects/**/*",
+        "*.js",
+        "dist/",
+        "node_modules/",
+        "www/"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "*.ts"
+            ],
+            "parserOptions": {
+                "project": [
+                    "tsconfig.json"
+                ],
+                "createDefaultProgram": true,
+                "sourceType": "module"
+            },
+            "extends": [
+                "eslint:recommended",
+                "plugin:@typescript-eslint/recommended",
+                "plugin:@angular-eslint/recommended",
+                "plugin:@angular-eslint/template/process-inline-templates",
+                "prettier",
+                "plugin:prettier/recommended"
+            ],
+            "rules": {
+                "@angular-eslint/component-class-suffix": [
+                    "error",
+                    {
+                        "suffixes": [
+                            "Page",
+                            "Component"
+                        ]
+                    }
+                ],
+                "@angular-eslint/component-selector": [
+                    "error",
+                    {
+                        "type": "element",
+                        "prefix": "app",
+                        "style": "kebab-case"
+                    }
+                ],
+                "@angular-eslint/directive-selector": [
+                    "error",
+                    {
+                        "type": "attribute",
+                        "prefix": "app",
+                        "style": "camelCase"
+                    }
+                ],
+                "quotes": [
+                    "error",
+                    "single"
+                ],
+                "semi": [
+                    "error",
+                    "always"
+                ],
+                "no-console": [
+                    "warn",
+                    {
+                        "allow": [
+                            "warn",
+                            "error"
+                        ]
+                    }
+                ],
+                "eqeqeq": [
+                    "error",
+                    "always"
+                ],
+                "@typescript-eslint/no-unused-vars": [
+                    "warn",
+                    {
+                        "argsIgnorePattern": "^_"
+                    }
+                ],
+                "@typescript-eslint/explicit-function-return-type": "warn",
+                "@typescript-eslint/no-explicit-any": "error",
+                "prettier/prettier": "error"
+            }
+        },
+        {
+            "files": [
+                "*.html"
+            ],
+            "extends": [
+                "plugin:@angular-eslint/template/recommended",
+                "plugin:@angular-eslint/template/accessibility",
+                "plugin:prettier/recommended"
+            ],
+            "rules": {
+                "prettier/prettier": [
+                    "error",
+                    {
+                        "parser": "angular"
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -37,6 +37,20 @@
           }
         }
       }
+    },
+    {
+      "label": "ESLint: autofix opened file",
+      "type": "shell",
+      "command": "npx eslint --fix \"${file}\"",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$eslint-stylish"],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared",
+        "clear": true
+      }
     }
   ]
 }

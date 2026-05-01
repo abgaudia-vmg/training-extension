@@ -17,7 +17,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/extension-training",
+            "outputPath": {
+              "base": "dist/extension-training",
+              "browser": ""
+            },
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -25,38 +28,193 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": []
           },
           "configurations": {
-            "production": {
-              "budgets": [
+            "prod": {
+              "optimization": {
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                }
+              },
+              "extractLicenses": false,
+              "sourceMap": true,
+              "outputHashing": "none",
+              "fileReplacements": [
                 {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "src/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "**/*",
+                  "input": "src/icons/prod",
+                  "output": "assets/icons"
+                },
+                "src/favicon.ico",
+                "src/manifest.json",
+                "src/background.js",
+                "src/content.js"
+              ],
+              "scripts": [
+                {
+                  "input": "src/environments/environment.prod.js",
+                  "bundleName": "environment",
+                  "inject": false
+                }
+              ]
+            },
+            "dev": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "outputHashing": "none",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "src/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "**/*",
+                  "input": "src/icons/dev",
+                  "output": "assets/icons"
+                },
+                "src/favicon.ico",
+                "src/manifest.json",
+                "src/background.js",
+                "src/content.js"
+              ],
+              "scripts": [
+                {
+                  "input": "src/environments/environment.dev.js",
+                  "bundleName": "environment",
+                  "inject": false
+                }
+              ]
+            },
+            "qa": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "outputHashing": "none",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ],
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "src/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "**/*",
+                  "input": "src/icons/qa",
+                  "output": "assets/icons"
+                },
+                "src/favicon.ico",
+                "src/manifest.json",
+                "src/background.js",
+                "src/content.js"
+              ],
+              "scripts": [
+                {
+                  "input": "src/environments/environment.qa.js",
+                  "bundleName": "environment",
+                  "inject": false
+                }
+              ]
+            },
+            "staging": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "outputHashing": "none",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ],
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "src/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "**/*",
+                  "input": "src/icons/staging",
+                  "output": "assets/icons"
+                },
+                "src/favicon.ico",
+                "src/manifest.json",
+                "src/background.js",
+                "src/content.js"
+              ],
+              "scripts": [
+                {
+                  "input": "src/environments/environment.staging.js",
+                  "bundleName": "environment",
+                  "inject": false
+                }
+              ]
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "namedChunks": true,
+              "outputHashing": "none",
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "src/assets",
+                  "output": "assets"
+                },
+                {
+                  "glob": "**/*",
+                  "input": "src/icons/local",
+                  "output": "assets/icons"
+                },
+                "src/favicon.ico",
+                "src/manifest.json",
+                "src/background.js",
+                "src/content.js"
+              ],
+              "scripts": [
+                {
+                  "input": "src/environments/environment.js",
+                  "bundleName": "environment",
+                  "inject": false
+                }
+              ]
+            },
+            "ci": {
+              "progress": false
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "prod"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -97,5 +255,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
