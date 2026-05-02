@@ -1,12 +1,66 @@
 <div
-    class="flex flex-col items-center justify-center border rounded-md p-4 border-gray-300 dark:border-gray-600 bg-[var(--color-bg)] text-[var(--color-text)]"
+    class="h-[600px] w-full flex flex-col items-center justify-center gap-6 px-6 bg-[var(--color-bg)] text-[var(--color-text)]"
 >
-    <h1>Extension Training</h1>
-    <p>ACTO: {{ acto }}</p>
-    <p>RETO: {{ reto }}</p>
-    <button (click)="openTodoApplication()">Open Todo Application</button>
-    <button (click)="toggleTheme()">
-        TOGGLE
-        {{ this.ThemeService.isDarkMode() ? "Light 🌞" : "Dark 🌙" }} MODE
+    <!-- Toast -->
+    <app-toast #toast class="w-full"></app-toast>
+    <!-- Logo + Title -->
+    <div class="flex flex-col items-center gap-3">
+        <img
+            src="assets/icons/48.png"
+            alt="Todo Management Helper"
+            class="size-8"
+        />
+        <h1 class="text-base font-semibold tracking-tight text-center">
+            Todo Management Helper
+        </h1>
+    </div>
+
+    <!-- Login Status -->
+    <div
+        class="w-full rounded-lg border border-gray-200 dark:border-gray-700 px-6 py-4"
+    >
+        <p
+            class="text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-3"
+        >
+            Login Status
+        </p>
+        <div class="flex items-center justify-around">
+            <div class="flex flex-col items-center gap-1">
+                <span
+                    class="text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500"
+                    >ACTO</span
+                >
+                <span class="text-xl">{{ acto }}</span>
+            </div>
+            <div class="w-px h-8 bg-gray-200 dark:bg-gray-700"></div>
+            <div class="flex flex-col items-center gap-1">
+                <span
+                    class="text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500"
+                    >RETO</span
+                >
+                <span class="text-xl">{{ reto }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Toggle -->
+    <app-dark-mode-toggle class="w-full"></app-dark-mode-toggle>
+
+    <!-- Open App -->
+    <button
+        (click)="openTodoApplication()"
+        class="w-full py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+    >
+        Open Todo App
     </button>
+
+    <!-- Logout -->
+    @if (isLoggedIn) {
+        <button
+            (click)="logout()"
+            class="w-full py-2 rounded-lg border border-red-200 dark:border-red-900 text-sm text-red-400 dark:text-red-500 hover:bg-red-50 dark:hover:bg-red-950 transition-colors"
+        >
+            Logout
+        </button>
+    }
 </div>

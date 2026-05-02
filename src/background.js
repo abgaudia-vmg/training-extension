@@ -4,6 +4,7 @@ const APP_URL = `http://localhost:4200/`;
 const STORAGE_KEY = `extension_training_cookie_ui`;
 const THEME_CHANNEL_BROADCAST_EVENT = 'theme-change';
 const THEME_STORAGE_KEY = 'theme';
+const LOGOUT_CHANNEL_BROADCAST_EVENT_LOGOUT = 'session-logout';
 
 async function getCookiesAndStore() {
     const [acto, reto] = await Promise.all([
@@ -32,6 +33,27 @@ chrome.cookies.onChanged.addListener((changeInfo) => {
     if (cookie.name === COOKIE_ACTO || cookie.name === COOKIE_RETO) {
         void getCookiesAndStore();
     }
+});
+
+chrome.runtime.onMessage.addListener((message) => {
+    if (message.type === LOGOUT_CHANNEL_BROADCAST_EVENT_LOGOUT) {
+        console.log('logout message received in background');
+        chrome.tabs.query({}, (tabs) => {
+            for (const tab of tabs) {
+                chrome.tabs.sendMessage(tab.id, {
+                    type: LOGOUT_CHANNEL_BROADCAST_EVENT_LOGOUT,
+                }).catch(() => { });
+            }
+        });
+    }
+    return true;
+});
+
+chrome.runtime.onMessage.addListener((message) => {
+    if (message.type === SESSION_CHANNEL_BROADCAST_EVENT_LOGOUT_SUCCESS) {
+        console.log('logout success message received in background');
+    }
+    return true;
 });
 chrome.cookies.getAll({ domain: "localhost" }, console.log);
 void getCookiesAndStore();

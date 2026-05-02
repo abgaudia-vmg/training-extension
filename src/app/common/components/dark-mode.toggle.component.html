@@ -1,0 +1,22 @@
+<div
+    class="w-full flex flex-row items-center justify-between gap-4 border rounded-md p-4 border-gray-300 dark:border-gray-600"
+>
+    <!-- <span class="text-[#707784] text-lg">{{ isDark() ? "Dark" : "Light" }} Mode</span> -->
+    <span class="text-[#707784] text-lg">Toggle Theme</span>
+
+    <div class="flex flex-row items-center justify-center gap-4">
+        <button
+            type="button"
+            role="switch"
+            [attr.aria-checked]="isDark()"
+            aria-label="Dark mode"
+            (click)="toggle()"
+            [class]="toggleClass()"
+        >
+            <span [class]="thumbClass()"></span>
+        </button>
+        <span [class]="iconClass()" aria-hidden="true">
+            {{ isDark() ? "🌙" : "☀️" }}
+        </span>
+    </div>
+</div>

@@ -13,7 +13,6 @@ export class ThemeService {
 
     constructor() {
         this.getTheme();
-        this.listenToExternalChanges();
     }
 
     get appPreferredTheme(): boolean {
@@ -59,19 +58,30 @@ export class ThemeService {
         }
     }
 
-    public listenToExternalChanges(): void {
-        console.log('listenToExternalChanges');
-        chrome.runtime.onMessage.addListener((event) => {
+    // public listenToExternalChanges(): void {
+    //     console.log('listenToExternalChanges');
+    //     chrome.runtime.onMessage.addListener((event) => {
+    //         console.log(
+    //             '🚀 ~ ThemeService ~ listenToExternalChanges ~ event:',
+    //             event,
+    //         );
+    //         if (event?.type === THEME_CHANNEL_BROADCAST_EVENT) {
+    //             this.applyDarkPalette((event.data.theme as TTheme) === 'dark');
+    //             this.setTheme(event.data.theme as TTheme, false);
+    //         }
+    //         return true;
+    //     });
+    // }
+    public listenToExternalChanges(event: MessageEvent) {
+        if (event?.type === THEME_CHANNEL_BROADCAST_EVENT) {
             console.log(
                 '🚀 ~ ThemeService ~ listenToExternalChanges ~ event:',
                 event,
             );
-            if (event?.type === THEME_CHANNEL_BROADCAST_EVENT) {
-                this.applyDarkPalette((event.data.theme as TTheme) === 'dark');
-                this.setTheme(event.data.theme as TTheme, false);
-            }
-            return true;
-        });
+            this.applyDarkPalette((event.data.theme as TTheme) === 'dark');
+            this.setTheme(event.data.theme as TTheme, false);
+        }
+        return true;
     }
 
     private broadcastThemeChange(theme: TTheme, tabId: number): void {
